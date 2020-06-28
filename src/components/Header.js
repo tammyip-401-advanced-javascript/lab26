@@ -6,7 +6,7 @@ function Header() {
     <header>
       <ul>
         <li>
-          <Link to='/'>Home</Link>
+          {/* <Link to='/'>Home</Link> */}
         </li>
       </ul>
       <h1>My ToDo App</h1>

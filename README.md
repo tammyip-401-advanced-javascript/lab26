@@ -19,10 +19,11 @@ Setup
 + npm i
 + npm install node-sass
 + npm install react-router-dom
++ npm install react-bootstrap bootstrap
 + start server with npm start
 
 + do npm run build to generate the build file for deployment
 
 
 UML
-https://docs.google.com/spreadsheets/d/1__o2VVLbNuQRB3oAKddA8fURmk4ih9RGlLvyIYV2c_Y/edit?usp=sharing
+https://docs.google.com/spreadsheets/d/1PTpN-8URlsfOwXzTnWDhDTY9bRXwTOpDRhXdzpesKwY/edit?usp=sharing
