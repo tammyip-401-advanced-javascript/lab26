@@ -9,7 +9,7 @@ function Header() {
           <Link to='/'>Home</Link>
         </li>
       </ul>
-      <h1>ToDo App</h1>
+      <h1>My ToDo App</h1>
     </header>
 
   );

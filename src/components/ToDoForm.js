@@ -1,82 +1,78 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 function ToDoForm(props) {
-  const [taskDescription, setTaskDescription] = useState('');
-  const [assignTo, setAssignTo] = useState('');
-  const [status, setStatus] = useState('incomplete');
-  const [difficulty, setDifficulty] = useState(1);
+  const [description, setDescription] = useState(props.description || '');
+  const [assignee, setAssignee] = useState(props.assignee || '');
+  const [status, setStatus] = useState(props.status || 'incomplete');
+  const [difficulty, setDifficulty] = useState(props.difficulty || 0);
 
-  // first param: a function to execute on Mount (and when second param has a change)
-  // return value should be another function to run on unmount
-  // second param: an array of variables to check for changes (if empty, first param only runs on mount)
-
-  function updateOnDeath() {
-    console.log('unmount');
-    document.title = 'dying';
+  function formSubmit() {
+    props.addTask({
+      description,
+      assignee,
+      status,
+      difficulty,
+    });
   }
-
-  function updateDifficulty() {
-    document.title = fName + ' ' + lName;
-    return updateOnDeath;
-  }
-
-  // run only on mount
-  // useEffect(updateTitleWithName, []);
-
-  // run on mount and ANY component update, and "cleans up" every time by running the unmount
-  // useEffect(updateTitleWithName, null);
-
-  // run on mount and when ONLY the variable i care about change
-  // useEffect(updateTitleWithName, [fName, lName]);
-
-  // typical implementation
-  useEffect(() => {
-    console.log('mount/update');
-    document.title = fName + ' ' + lName;
-    return () => {
-      console.log('unmount');
-      document.title = 'dying';
-    };
-  }, [fName, lName]);
-
-  useEffect(() => {
-    console.log('ran once');
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   return (
-    <>
-      <label>First Name: </label>
-      <input
-        type='text'
-        value={fName}
-        onChange={(e) => {
-          setFName(e.target.value);
-        }}
-      />
-      <label>Last Name: </label>
-      <input
-        type='text'
-        value={lName}
-        onChange={(e) => {
-          setLName(e.target.value);
-        }}
-      />
-      <input
-        type='number'
-        value={age}
-        onChange={(e) => {
-          setAge(parseInt(e.target.value));
-        }}
-      />
-      <h1>
-        Welcome {fName} {lName}
-      </h1>
-    </>
+    <Form>
+      <Form.Group controlId='todo-description'>
+        <Form.Label>Task Description</Form.Label>
+        <Form.Control
+          as='textarea'
+          rows='3'
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+          }}
+        />
+      </Form.Group>
+      <Form.Group controlId='todo-assignee'>
+        <Form.Label>Assigned To:</Form.Label>
+        <Form.Control
+          type='text'
+          placeholder='Enter name'
+          value={assignee}
+          onChange={(e) => {
+            setAssignee(e.target.value);
+          }}
+        />
+      </Form.Group>
+      <Form.Group controlId='todo-status'>
+        <Form.Label>Status</Form.Label>
+        <Form.Check
+          value={status === 'complete'}
+          onChange={() => {
+            setStatus(
+              status === 'complete' ? 'incomplete' : 'complete',
+            );
+          }}
+          type='switch'
+          id='status-switch'
+          label={status}
+        />
+      </Form.Group>
+      <Form.Group controlId='todo-difficulty'>
+        <Form.Label>Difficulty</Form.Label>
+        <Form.Control
+          type='range'
+          min={0}
+          max={5}
+          step={1}
+          value={difficulty}
+          onChange={(e) => {
+            setDifficulty(e.target.value);
+          }}
+        />
+      </Form.Group>
+
+      <Button variant='primary' id='add' type='button' onClick={formSubmit}>
+        Add Task
+            </Button>
+    </Form>
   );
 }
 
