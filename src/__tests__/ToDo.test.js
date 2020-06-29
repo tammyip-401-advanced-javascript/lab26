@@ -1,17 +1,17 @@
 import React from 'react';
-import RESTy from '../components/RESTy.js';
-import Form from '../components/Form.js';
-import Results from '../components/Results.js';
+import ToDo from '../components/ToDo.js';
+import ToDoForm from '../components/ToDoForm.js';
+import ToDoList from '../components/ToDoList.js';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
 describe('Resty', () => {
-  it('render correctly', () => {
-    let component = shallow(<RESTy />);
-    expect(component.find(Form)).toBeDefined();
-    expect(component.find(Results)).toBeDefined();
+  it('return correctly', () => {
+    let component = shallow(<ToDo />);
+    expect(component.find(ToDoForm)).toBeDefined();
+    expect(component.find(ToDoList)).toBeDefined();
   });
 
   it.skip('Submit function works correctly', () => {
